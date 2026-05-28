@@ -29,6 +29,7 @@ public:
 	        if (*msgIterator >= 'a' && *msgIterator <= 'z') *msgIterator -= 32;
 
 	        encodeLetter(*msgIterator);
+
 	    }
 
 	    Signal<double> wGap(0.0, Duration::perfectWordGap);
@@ -40,29 +41,33 @@ public:
 	void encodeLetter(char c)
 	{
 		std::string morse = reverseTable.at(c);
+		size_t sCount = 0;
 
-		std::string::iterator morseIterator;
+		    for (char symbol : morse)
+		    {
+		        if (symbol == '.')
+		        {
+		            Signal<double> s(5.0, Duration::perfectDot);
+		            simulator.addSignal(s);
+		        }
+		        else
+		        {
+		            Signal<double> s(5.0, Duration::perfectDash);
+		            simulator.addSignal(s);
+		        }
 
-		for (morseIterator = morse.begin(); morseIterator != morse.end(); morseIterator++)
-			{
-				if (*morseIterator == '.')
-				{
-					Signal<double> dot(5.0, Duration::perfectDot);
-					Signal<double> sGap(0.0, Duration::perfectSymbolGap);
-					simulator.addSignal(dot);
-					simulator.addSignal(sGap);
-				}
-				else
-				{
-					Signal<double> dash(5.0, Duration::perfectDash);
-					Signal<double> sGap(0.0, Duration::perfectSymbolGap);
-					simulator.addSignal(dash);
-					simulator.addSignal(sGap);
-				}
-			}
-
-		Signal<double> lGap(0.0, Duration::perfectLetterGap);
-		simulator.addSignal(lGap);
+		        sCount++;
+		        if (sCount < morse.size())
+		        {
+		        	Signal<double> sGap(0.0, Duration::perfectSymbolGap);
+		            simulator.addSignal(sGap);
+		        }
+		        else
+		        {
+		        	Signal<double> lGap(0.0, Duration::perfectLetterGap);
+					simulator.addSignal(lGap);
+		        }
+		    }
 	}
 
 	Encoder(Simulator& sim) : simulator(sim)
