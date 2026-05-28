@@ -51,9 +51,9 @@ public:
 
 	void process()
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
 		std::cout << analogRead(0) << std::endl;
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
 
 	void stop()
