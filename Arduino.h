@@ -53,7 +53,7 @@ public:
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
-		std::cout << a0_ptr <<std::endl;
+		std::cout << analogRead(0) << std::endl;
 	}
 
 	void stop()
