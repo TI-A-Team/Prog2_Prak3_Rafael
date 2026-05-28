@@ -53,6 +53,11 @@ public:
 			}
 	}
 
+	Encoder(Simulator& sim) : simulator(sim)
+	{
+
+	}
+
 };
 
 
