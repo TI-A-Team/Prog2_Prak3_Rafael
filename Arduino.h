@@ -2,8 +2,10 @@
 #define ARDUINO_H
 
 #include "Pin.h"
+#include "Signal.h"
 #include <chrono>
 #include <thread>
+#include <iostream>
 
 class Arduino
 {
@@ -49,7 +51,9 @@ public:
 
 	void process()
 	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
+		std::cout << a0_ptr <<std::endl;
 	}
 
 	void stop()
