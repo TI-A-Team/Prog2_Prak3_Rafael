@@ -30,6 +30,11 @@ public:
 
 	        encodeLetter(*msgIterator);
 	    }
+
+	    Signal<double> wGap(0.0, Duration::perfectWordGap);
+		simulator.addSignal(wGap);
+
+
 	}
 
 	void encodeLetter(char c)
@@ -42,15 +47,22 @@ public:
 			{
 				if (*morseIterator == '.')
 				{
-					Signal<double> s(5.0, Duration::perfectDot);
-					simulator.addSignal(s);
+					Signal<double> dot(5.0, Duration::perfectDot);
+					Signal<double> sGap(0.0, Duration::perfectSymbolGap);
+					simulator.addSignal(dot);
+					simulator.addSignal(sGap);
 				}
 				else
 				{
-					Signal<double> s(0.0, Duration::perfectDash);
-					simulator.addSignal(s);
+					Signal<double> dash(5.0, Duration::perfectDash);
+					Signal<double> sGap(0.0, Duration::perfectSymbolGap);
+					simulator.addSignal(dash);
+					simulator.addSignal(sGap);
 				}
 			}
+
+		Signal<double> lGap(0.0, Duration::perfectLetterGap);
+		simulator.addSignal(lGap);
 	}
 
 	Encoder(Simulator& sim) : simulator(sim)
