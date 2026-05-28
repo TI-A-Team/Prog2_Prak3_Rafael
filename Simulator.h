@@ -17,6 +17,11 @@ private:
 
 public:
 
+	const std::vector<Signal<double>>& getIntervals() const
+	{
+	    return intervals;
+	}
+
 	void addSignal(Signal <double> signal)
 	{
 		intervals.push_back(signal);
